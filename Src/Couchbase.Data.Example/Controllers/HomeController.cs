@@ -1,53 +1,73 @@
-﻿using System.Web.Mvc;
-using Couchbase.Core;
-using Couchbase.Data.DAO;
-using Couchbase.Data.Tests.Documents;
+﻿using System;
+using System.Web.Mvc;
+using Couchbase.Data.Example.Models.DAOs;
+using Couchbase.Data.Example.Models.DTOs;
 
 namespace Couchbase.Data.Example.Controllers
 {
     public class HomeController : Controller
     {
-        private IDataAccessObject<Beer> _beerDao;
+        private readonly BeerDao _beerDao;
 
         public HomeController()
-            : this(new DataAccessObject<Beer>(ClusterHelper.GetBucket("beer-sample")))
+            : this(new BeerDao(ClusterHelper.GetBucket("beer-sample")))
         {
         }
 
-        public HomeController(IDataAccessObject<Beer> beerDao)
+        public HomeController(BeerDao beerDao)
         {
             _beerDao = beerDao;
         }
-        //
-        // GET: /Home/
+
         public ActionResult Index()
         {
-            return View();
+            return View(_beerDao.GetAllBeers(10, 0));
         }
 
-        //
-        // GET: /Home/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
-            return View();
+            return View(_beerDao.Select(id));
         }
 
-        //
-        // GET: /Home/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /Home/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Beer beer)
         {
             try
             {
-                // TODO: Add insert logic here
+                _beerDao.Insert(beer);
 
+                return RedirectToAction("Index");
+            }
+            catch(Exception e)
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Edit(string id)
+        {
+            return View(_beerDao.Select(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(string id, Beer updated)
+        {
+            try
+            {
+                var beer = _beerDao.Select(id);
+                beer.Abv = updated.Abv;
+                beer.Ibu = updated.Ibu;
+                beer.Name = updated.Name;
+                beer.Srm = updated.Srm;
+                beer.Style = updated.Style;
+                beer.BreweryId = updated.BreweryId;
+                beer.Description = updated.Description;
+                _beerDao.Update(beer);
                 return RedirectToAction("Index");
             }
             catch
@@ -56,45 +76,18 @@ namespace Couchbase.Data.Example.Controllers
             }
         }
 
-        //
-        // GET: /Home/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            return View(_beerDao.Select(id));
         }
 
-        //
-        // POST: /Home/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Delete(string id, Beer deletedBeer)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        //
-        // GET: /Home/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Home/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+                var beer = _beerDao.Select(id);
+                _beerDao.Remove(beer);
 
                 return RedirectToAction("Index");
             }

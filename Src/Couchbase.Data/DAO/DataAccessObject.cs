@@ -86,14 +86,20 @@ namespace Couchbase.Data.DAO
                         throw new ArgumentOutOfRangeException();
                 }
             }
+            SetId(result.Content, result.Document);
             return result.Content;
         }
 
         public void Insert(T document)
         {
+            if (string.IsNullOrEmpty(document.Id))
+            {
+                throw new ArgumentException("Id must be a valid string.");
+            }
             var result = Bucket.Insert(new Document<T>
             {
-                Content = document
+                Content = document,
+                Id = document.Id
             });
             if (!result.Success)
             {
@@ -123,6 +129,10 @@ namespace Couchbase.Data.DAO
 
         public void Update(T document)
         {
+            if (string.IsNullOrEmpty(document.Id))
+            {
+                throw new ArgumentException("Id must be a valid string.");
+            }
             var result = Bucket.Replace(new Document<T>
             {
                 Content = document,
@@ -156,6 +166,10 @@ namespace Couchbase.Data.DAO
 
         public void Upsert(T document)
         {
+            if (string.IsNullOrEmpty(document.Id))
+            {
+                throw new ArgumentException("Id must be a valid string.");
+            }
             var result = Bucket.Upsert(new Document<T>
             {
                 Content = document,
@@ -187,6 +201,10 @@ namespace Couchbase.Data.DAO
 
         public void Remove(T document)
         {
+            if (string.IsNullOrEmpty(document.Id))
+            {
+                throw new ArgumentException("Id must be a valid string.");
+            }
             var result = Bucket.Remove(new Document<T>
             {
                 Content = document,
@@ -327,6 +345,11 @@ namespace Couchbase.Data.DAO
                 throw new ViewRequestException(message, results.StatusCode);
             }
             return results.Values;
+        }
+
+        void SetId(IDataTransferObject obj, IDocument<T> document)
+        {
+            obj.Id = document.Id;
         }
     }
 }

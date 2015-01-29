@@ -1,8 +1,86 @@
-﻿@model dynamic
+﻿@model Couchbase.Data.Example.Models.DTOs.Beer
 
 @{
-    ViewBag.Title = "title";
-    Layout = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Beer</h4>
+    	<hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Abv)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Abv)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ibu)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ibu)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Srm)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Srm)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Upc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Upc)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BreweryId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BreweryId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Style)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Style)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

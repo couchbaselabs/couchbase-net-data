@@ -39,9 +39,9 @@
     <Reference Include="Couchbase.NetClient">
       <HintPath>..\..\..\..\..\jenkins\workspace-net2\couchbase-net-client\Src\Couchbase\bin\Debug\Couchbase.NetClient.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\jenkins\workspace-net2\couchbase-net-client\Src\Couchbase\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,11 +62,14 @@
     <Compile Include="DAO\IDataTransferObject.cs" />
     <Compile Include="DocumentExistsException.cs" />
     <Compile Include="DocumentNotFoundException.cs" />
+    <Compile Include="IgnoreIdContractResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryRequestException.cs" />
     <Compile Include="ViewRequestException.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -220,7 +220,12 @@ namespace Couchbase.Data.Tests
                 {
                     Status = ResponseStatus.Success,
                     Success = true,
-                    Content = beer
+                    Content = beer,
+                    Document = new Document<Beer>
+                    {
+                        Content = beer,
+                        Id = beer.Id
+                    }
                 });
 
             var dao = new DataAccessObject<Beer>(bucket.Object);

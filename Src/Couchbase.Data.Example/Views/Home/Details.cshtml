@@ -14,7 +14,14 @@
 <body>
     <div>
         <h4>Beer</h4>
-    	<hr />
+        <hr />
+        @if (ViewBag.Error != null)
+        {
+            <div class="isa_error">
+                <i class="fa fa-times-circle"></i>
+                Error: @ViewBag.Error
+            </div>
+        }
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Type)

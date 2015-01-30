@@ -21,12 +21,28 @@ namespace Couchbase.Data.Example.Controllers
 
         public ActionResult Index()
         {
-            return View(_beerDao.GetAllBeers(10, 0));
+            try
+            {
+                return View(_beerDao.GetAllBeers(10, 0));
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return View();
+            }
         }
 
         public ActionResult Details(string id)
         {
-            return View(_beerDao.Select(id));
+            try
+            {
+                return View(_beerDao.Select(id));
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return View();
+            }
         }
 
         public ActionResult Create()
@@ -53,7 +69,15 @@ namespace Couchbase.Data.Example.Controllers
 
         public ActionResult Edit(string id)
         {
-            return View(_beerDao.Select(id));
+            try
+            {
+                return View(_beerDao.Select(id));
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return View();
+            }
         }
 
         [HttpPost]
@@ -83,7 +107,15 @@ namespace Couchbase.Data.Example.Controllers
 
         public ActionResult Delete(string id)
         {
-            return View(_beerDao.Select(id));
+            try
+            {
+                return View(_beerDao.Select(id));
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = e.Message;
+                return View();
+            }
         }
 
         [HttpPost]

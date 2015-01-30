@@ -90,23 +90,23 @@ namespace Couchbase.Data.DAO
             return result.Content;
         }
 
-        public void Insert(T document)
+        public void Insert(T obj)
         {
-            if (string.IsNullOrEmpty(document.Id))
+            if (string.IsNullOrEmpty(obj.Id))
             {
                 throw new ArgumentException("Id must be a valid string.");
             }
             var result = Bucket.Insert(new Document<T>
             {
-                Content = document,
-                Id = document.Id
+                Content = obj,
+                Id = obj.Id
             });
             if (!result.Success)
             {
                 switch (result.Status)
                 {
                     case ResponseStatus.KeyExists:
-                        throw new DocumentExistsException(result, document.Id);
+                        throw new DocumentExistsException(result, obj.Id);
                     case ResponseStatus.AuthenticationError:
                         throw new CouchbaseAuthenticationException(result);
                     case ResponseStatus.ItemNotStored:
@@ -115,35 +115,36 @@ namespace Couchbase.Data.DAO
                     case ResponseStatus.InternalError:
                     case ResponseStatus.Busy:
                     case ResponseStatus.TemporaryFailure:
-                        throw new CouchbaseServerException(result, document.Id);
+                        throw new CouchbaseServerException(result, obj.Id);
                     case ResponseStatus.ValueTooLarge:
                         throw new CouchbaseDataException(result);
                     case ResponseStatus.ClientFailure:
                     case ResponseStatus.OperationTimeout:
-                        throw new CouchbaseClientException(result, document.Id);
+                        throw new CouchbaseClientException(result, obj.Id);
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        public void Update(T document)
+        public void Update(T obj)
         {
-            if (string.IsNullOrEmpty(document.Id))
+            if (string.IsNullOrEmpty(obj.Id))
             {
                 throw new ArgumentException("Id must be a valid string.");
             }
             var result = Bucket.Replace(new Document<T>
             {
-                Content = document,
-                Cas = document.Cas
+                Content = obj,
+                Cas = obj.Cas,
+                Id = obj.Id
             });
             if (!result.Success)
             {
                 switch (result.Status)
                 {
                     case ResponseStatus.KeyNotFound:
-                        throw new DocumentNotFoundException(result, document.Id);
+                        throw new DocumentNotFoundException(result, obj.Id);
                     case ResponseStatus.AuthenticationError:
                         throw new CouchbaseAuthenticationException(result);
                     case ResponseStatus.ItemNotStored:
@@ -152,28 +153,29 @@ namespace Couchbase.Data.DAO
                     case ResponseStatus.InternalError:
                     case ResponseStatus.Busy:
                     case ResponseStatus.TemporaryFailure:
-                        throw new CouchbaseServerException(result, document.Id);
+                        throw new CouchbaseServerException(result, obj.Id);
                     case ResponseStatus.ValueTooLarge:
-                        throw new CouchbaseDataException(result, document.Id);
+                        throw new CouchbaseDataException(result, obj.Id);
                     case ResponseStatus.ClientFailure:
                     case ResponseStatus.OperationTimeout:
-                        throw new CouchbaseClientException(result, document.Id);
+                        throw new CouchbaseClientException(result, obj.Id);
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        public void Upsert(T document)
+        public void Upsert(T obj)
         {
-            if (string.IsNullOrEmpty(document.Id))
+            if (string.IsNullOrEmpty(obj.Id))
             {
                 throw new ArgumentException("Id must be a valid string.");
             }
             var result = Bucket.Upsert(new Document<T>
             {
-                Content = document,
-                Cas = document.Cas
+                Content = obj,
+                Cas = obj.Cas,
+                Id = obj.Id
             });
             if (!result.Success)
             {
@@ -187,35 +189,35 @@ namespace Couchbase.Data.DAO
                     case ResponseStatus.InternalError:
                     case ResponseStatus.Busy:
                     case ResponseStatus.TemporaryFailure:
-                        throw new CouchbaseServerException(result, document.Id);
+                        throw new CouchbaseServerException(result, obj.Id);
                     case ResponseStatus.ValueTooLarge:
-                        throw new CouchbaseDataException(result, document.Id);
+                        throw new CouchbaseDataException(result, obj.Id);
                     case ResponseStatus.ClientFailure:
                     case ResponseStatus.OperationTimeout:
-                        throw new CouchbaseClientException(result, document.Id);
+                        throw new CouchbaseClientException(result, obj.Id);
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
         }
 
-        public void Remove(T document)
+        public void Remove(T obj)
         {
-            if (string.IsNullOrEmpty(document.Id))
+            if (string.IsNullOrEmpty(obj.Id))
             {
                 throw new ArgumentException("Id must be a valid string.");
             }
             var result = Bucket.Remove(new Document<T>
             {
-                Content = document,
-                Cas = document.Cas
+                Content = obj,
+                Cas = obj.Cas
             });
             if (!result.Success)
             {
                 switch (result.Status)
                 {
                     case ResponseStatus.KeyNotFound:
-                        throw new DocumentNotFoundException(result, document.Id);
+                        throw new DocumentNotFoundException(result, obj.Id);
                     case ResponseStatus.AuthenticationError:
                         throw new CouchbaseAuthenticationException(result);
                     case ResponseStatus.ItemNotStored:
@@ -224,12 +226,12 @@ namespace Couchbase.Data.DAO
                     case ResponseStatus.InternalError:
                     case ResponseStatus.Busy:
                     case ResponseStatus.TemporaryFailure:
-                        throw new CouchbaseServerException(result, document.Id);
+                        throw new CouchbaseServerException(result, obj.Id);
                     case ResponseStatus.ValueTooLarge:
-                        throw new CouchbaseDataException(result);
+                        throw new CouchbaseDataException(result, obj.Id);
                     case ResponseStatus.ClientFailure:
                     case ResponseStatus.OperationTimeout:
-                        throw new CouchbaseClientException(result, document.Id);
+                        throw new CouchbaseClientException(result, obj.Id);
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

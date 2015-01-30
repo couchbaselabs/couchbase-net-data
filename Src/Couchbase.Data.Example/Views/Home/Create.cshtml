@@ -15,6 +15,13 @@
     <div class="form-horizontal">
         <h4>Beer</h4>
         <hr />
+        @if (ViewBag.Error != null)
+        {
+           <div class="isa_error">
+               <i class="fa fa-times-circle"></i>
+               Error: @ViewBag.Error
+            </div>
+        }
         @Html.ValidationSummary(true)
 
         <div class="form-group">

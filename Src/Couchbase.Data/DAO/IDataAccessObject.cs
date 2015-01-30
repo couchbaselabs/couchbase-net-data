@@ -19,13 +19,13 @@ namespace Couchbase.Data.DAO
 
         T Select(string key);
 
-        void Insert(T document);
+        void Insert(T obj);
 
-        void Update(T document);
+        void Update(T obj);
 
-        void Upsert(T document);
+        void Upsert(T obj);
 
-        void Remove(T document);
+        void Remove(T obj);
 
         void Remove(IList<string> keys);
 

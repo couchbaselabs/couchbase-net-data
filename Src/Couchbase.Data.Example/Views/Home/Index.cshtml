@@ -5,7 +5,13 @@
 }
 
 <h2>Index</h2>
-
+@if (ViewBag.Error != null)
+{
+    <div class="isa_error">
+        <i class="fa fa-times-circle"></i>
+        Error: @ViewBag.Error
+    </div>
+}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>

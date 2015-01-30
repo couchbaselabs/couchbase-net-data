@@ -23,6 +23,7 @@ namespace Couchbase.Data.Example
             ClusterHelper.Initialize(config);
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            ErrorHandlingConfig.ConfigureErrorHandling();
         }
     }
 }

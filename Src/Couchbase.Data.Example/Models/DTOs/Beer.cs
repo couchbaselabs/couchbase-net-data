@@ -1,4 +1,5 @@
-﻿using Couchbase.Data.DAO;
+﻿using System;
+using Couchbase.Data.DAO;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
@@ -31,6 +32,8 @@ namespace Couchbase.Data.Example.Models.DTOs
         public string Style { get; set; }
 
         public string Category { get; set; }
+
+        public DateTime ?Updated { get; set; }
         /*
              * {
                   "name": "21A IPA",

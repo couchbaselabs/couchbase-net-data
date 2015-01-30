@@ -39,12 +39,14 @@ namespace Couchbase.Data.Example.Controllers
         {
             try
             {
+                beer.Updated = DateTime.Now;
                 _beerDao.Insert(beer);
 
                 return RedirectToAction("Index");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                ViewBag.Error = e.Message;
                 return View();
             }
         }
@@ -67,11 +69,14 @@ namespace Couchbase.Data.Example.Controllers
                 beer.Style = updated.Style;
                 beer.BreweryId = updated.BreweryId;
                 beer.Description = updated.Description;
+                beer.Updated = DateTime.Now;
                 _beerDao.Update(beer);
+
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
+                ViewBag.Error = e.Message;
                 return View();
             }
         }
@@ -91,8 +96,9 @@ namespace Couchbase.Data.Example.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
+                ViewBag.Error = e.Message;
                 return View();
             }
         }

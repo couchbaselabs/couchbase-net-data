@@ -31,13 +31,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\..\..\..\jenkins\workspace-net2\couchbase-net-client\Src\Couchbase\bin\Debug\Common.Logging.dll</HintPath>
+      <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging.Core">
-      <HintPath>..\..\..\..\..\jenkins\workspace-net2\couchbase-net-client\Src\Couchbase\bin\Debug\Common.Logging.Core.dll</HintPath>
+      <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="Couchbase.NetClient">
-      <HintPath>..\..\..\..\..\jenkins\workspace-net2\couchbase-net-client\Src\Couchbase\bin\Debug\Couchbase.NetClient.dll</HintPath>
+      <HintPath>..\packages\CouchbaseNetClient.2.0.2\lib\net45\Couchbase.NetClient.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
@@ -69,12 +69,16 @@
     <Compile Include="Fakes\FakeQueryResult.cs" />
     <Compile Include="Fakes\FakeViewResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Couchbase.Data.RepositoryExample\Couchbase.Data.RepositoryExample.csproj">
+      <Project>{EDFC397F-E73E-4D45-8DB8-096DEC33C0AB}</Project>
+      <Name>Couchbase.Data.RepositoryExample</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Couchbase.Data\Couchbase.Data.csproj">
       <Project>{2eda3e96-af7c-4bd7-a929-711a06ff8a43}</Project>
       <Name>Couchbase.Data</Name>

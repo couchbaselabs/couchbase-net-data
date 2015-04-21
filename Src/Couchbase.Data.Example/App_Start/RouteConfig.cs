@@ -13,17 +13,11 @@ namespace Couchbase.Data.Example
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapMvcAttributeRoutes();
-
-            routes.RegisterSpecificErrorHandlingRoutes(); // <-- Add specific routes before any generic route configuration
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
-
-            routes.RegisterCatchAllErrorHandlingRoute(); // <-- Add catch all route after all other route configuration
         }
     }
 }

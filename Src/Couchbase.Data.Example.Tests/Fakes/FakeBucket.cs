@@ -482,5 +482,11 @@ namespace Couchbase.Data.Example.Tests.Fakes
         {
             throw new NotImplementedException();
         }
+
+
+        public Task<IOperationResult<object>> RemoveAsync(string key)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

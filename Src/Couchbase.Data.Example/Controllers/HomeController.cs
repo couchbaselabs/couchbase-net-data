@@ -1,136 +1,105 @@
-﻿using System;
-using System.Web.Mvc;
-using Couchbase.Data.Example.Models.DAOs;
-using Couchbase.Data.Example.Models.DTOs;
+﻿using System.Web.Mvc;
+using Couchbase.Core;
+using Couchbase.Data.DAO;
+using Couchbase.Data.Tests.Documents;
 
 namespace Couchbase.Data.Example.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly BeerDao _beerDao;
+        private IDataAccessObject<Beer> _beerDao;
 
         public HomeController()
-            : this(new BeerDao(ClusterHelper.GetBucket("beer-sample")))
+            : this(new DataAccessObject<Beer>(ClusterHelper.GetBucket("beer-sample")))
         {
         }
 
-        public HomeController(BeerDao beerDao)
+        public HomeController(IDataAccessObject<Beer> beerDao)
         {
             _beerDao = beerDao;
         }
-
+        //
+        // GET: /Home/
         public ActionResult Index()
         {
-            try
-            {
-                return View(_beerDao.GetAllBeers(10, 0));
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = e.Message;
-                return View();
-            }
+            return View();
         }
 
-        public ActionResult Details(string id)
+        //
+        // GET: /Home/Details/5
+        public ActionResult Details(int id)
         {
-            try
-            {
-                return View(_beerDao.Select(id));
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = e.Message;
-                return View();
-            }
+            return View();
         }
 
+        //
+        // GET: /Home/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        //
+        // POST: /Home/Create
         [HttpPost]
-        public ActionResult Create(Beer beer)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                beer.Updated = DateTime.Now;
-                _beerDao.Insert(beer);
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch
             {
-                ViewBag.Error = e.Message;
                 return View();
             }
         }
 
-        public ActionResult Edit(string id)
+        //
+        // GET: /Home/Edit/5
+        public ActionResult Edit(int id)
         {
-            try
-            {
-                return View(_beerDao.Select(id));
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = e.Message;
-                return View();
-            }
+            return View();
         }
 
+        //
+        // POST: /Home/Edit/5
         [HttpPost]
-        public ActionResult Edit(string id, Beer updated)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                var beer = _beerDao.Select(id);
-                beer.Abv = updated.Abv;
-                beer.Ibu = updated.Ibu;
-                beer.Name = updated.Name;
-                beer.Srm = updated.Srm;
-                beer.Style = updated.Style;
-                beer.BreweryId = updated.BreweryId;
-                beer.Description = updated.Description;
-                beer.Updated = DateTime.Now;
-                _beerDao.Update(beer);
+                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
-            catch(Exception e)
+            catch
             {
-                ViewBag.Error = e.Message;
                 return View();
             }
         }
 
-        public ActionResult Delete(string id)
+        //
+        // GET: /Home/Delete/5
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                return View(_beerDao.Select(id));
-            }
-            catch (Exception e)
-            {
-                ViewBag.Error = e.Message;
-                return View();
-            }
+            return View();
         }
 
+        //
+        // POST: /Home/Delete/5
         [HttpPost]
-        public ActionResult Delete(string id, Beer deletedBeer)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                var beer = _beerDao.Select(id);
-                _beerDao.Remove(beer);
+                // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch
             {
-                ViewBag.Error = e.Message;
                 return View();
             }
         }

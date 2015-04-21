@@ -15,7 +15,8 @@ namespace Couchbase.Data.DAO
             Type = _typeName;
         }
 
-        public virtual string Id { get; set; }
+        [JsonIgnore]
+        public string Id { get; set; }
 
         public string Type { get; set; }
 

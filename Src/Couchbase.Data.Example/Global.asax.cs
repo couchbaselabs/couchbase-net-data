@@ -4,8 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Couchbase.Configuration.Client;
-using Newtonsoft.Json;
 
 namespace Couchbase.Data.Example
 {
@@ -13,17 +11,9 @@ namespace Couchbase.Data.Example
     {
         protected void Application_Start()
         {
-            var config = new ClientConfiguration
-            {
-                SerializationSettings = new JsonSerializerSettings
-                {
-                    ContractResolver = new IgnoreIdContractResolver()
-                }
-            };
-            ClusterHelper.Initialize(config);
+            ClusterHelper.Initialize();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            ErrorHandlingConfig.ConfigureErrorHandling();
         }
     }
 }
